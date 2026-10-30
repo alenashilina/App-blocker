@@ -82,6 +82,7 @@ class MainActivity : Activity() {
             row.addView(ImageView(this).apply { setImageDrawable(icon) }, LinearLayout.LayoutParams(dp(40), dp(40)))
         } else {
             row.addView(TextView(this).apply {
+            setTextColor(textColor())
                 text = if (m.quick) "⏳" else m.emoji
                 textSize = 28f
                 gravity = Gravity.CENTER
@@ -93,12 +94,14 @@ class MainActivity : Activity() {
             setPadding(dp(12), 0, dp(8), 0)
         }
         middle.addView(TextView(this).apply {
+            setTextColor(textColor())
             text = if (m.quick) appsText(this@MainActivity, m.apps) else displayName(this@MainActivity, m)
             textSize = 17f
             typeface = Typeface.DEFAULT_BOLD
         })
         val details = if (m.quick) m.scheduleText() else "${m.scheduleText()}\n${appsText(this, m.apps)}"
         middle.addView(TextView(this).apply {
+            setTextColor(textColor())
             text = details
             textSize = 13f
             alpha = 0.7f
@@ -112,6 +115,7 @@ class MainActivity : Activity() {
         }
         if (status != null) {
             middle.addView(TextView(this).apply {
+                setTextColor(textColor())
                 text = status
                 textSize = 13f
                 if (m.isActive()) setTextColor(Color.parseColor("#2E9E5B"))

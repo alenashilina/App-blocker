@@ -3,6 +3,7 @@ package app.focuslock
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
@@ -44,8 +45,9 @@ class Ui(private val c: Context, val root: LinearLayout) {
     ): TextView = TextView(c).apply {
         text = s
         textSize = size
+        setTextColor(c.textColor())
         if (bold) typeface = Typeface.DEFAULT_BOLD
-        if (dim) alpha = 0.7f
+        if (dim) alpha = 0.65f
         if (center) gravity = Gravity.CENTER
         setPadding(0, c.dp(6), 0, c.dp(6))
     }.also { add(it) }
@@ -59,7 +61,12 @@ class Ui(private val c: Context, val root: LinearLayout) {
             isAllCaps = false
             isEnabled = enabled
             setOnClickListener { onClick() }
-        }.also { add(it) }
+        }.also { add(it, spaced()) }
+
+    /** Full-width layout with a gap above, so stacked buttons don't touch. */
+    fun spaced() = LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+    ).apply { topMargin = c.dp(8) }
 }
 
 /** Go to the home screen (used to leave a blocked app behind). */
@@ -68,6 +75,14 @@ fun Activity.goHome() {
         Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     )
     finish()
+}
+
+/** The theme's main text colour (black in light mode, white in dark mode). */
+fun Context.textColor(): Int {
+    val a = obtainStyledAttributes(intArrayOf(android.R.attr.textColorPrimary))
+    val color = a.getColor(0, Color.BLACK)
+    a.recycle()
+    return color
 }
 
 fun Context.dp(v: Int): Int = (v * resources.displayMetrics.density).toInt()

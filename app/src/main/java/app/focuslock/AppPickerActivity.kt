@@ -73,6 +73,7 @@ class AppPickerActivity : Activity() {
         setPadding(dp(16), dp(10), dp(16), dp(10))
         addView(ImageView(this@AppPickerActivity), LinearLayout.LayoutParams(dp(36), dp(36)))
         addView(TextView(this@AppPickerActivity).apply {
+            setTextColor(textColor())
             textSize = 16f
             setPadding(dp(14), 0, 0, 0)
         }, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f))

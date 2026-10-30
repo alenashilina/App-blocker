@@ -102,12 +102,18 @@ class EditModeActivity : Activity() {
             ui.header("When")
             val atTimes = RadioButton(this).apply {
                 id = View.generateViewId()
-                text = "At set times"
+                text = "At set times (e.g. work hours)"
+                textSize = 16f
+                setTextColor(textColor())
+                setPadding(dp(8), dp(10), 0, dp(10))
                 isEnabled = editable
             }
             val afterWake = RadioButton(this).apply {
                 id = View.generateViewId()
-                text = "After I wake up (first unlock of the day)"
+                text = "Morning: after I wake up"
+                textSize = 16f
+                setTextColor(textColor())
+                setPadding(dp(8), dp(10), 0, dp(10))
                 isEnabled = editable
             }
             val group = RadioGroup(this).apply {
@@ -120,6 +126,11 @@ class EditModeActivity : Activity() {
                 }
             }
             ui.add(group)
+            ui.text(
+                if (mode.kind == KIND_WAKE) "Blocks for a while after the first time you unlock your phone in the morning."
+                else "For mornings, pick \"Morning: after I wake up\" above.",
+                size = 13f, dim = true
+            )
         }
 
         ui.button("Days: ${daysText(mode.days)}", editable) { pickDays() }
@@ -170,9 +181,12 @@ class EditModeActivity : Activity() {
                     mode.quickUntil = System.currentTimeMillis() + minutes * 60_000L
                     render()
                 }
-            }, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f))
+            }, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).apply {
+                marginStart = dp(3)
+                marginEnd = dp(3)
+            })
         }
-        ui.add(presets)
+        ui.add(presets, ui.spaced())
 
         ui.button("Pick a time…") {
             val shown = LocalDateTime.now().plusHours(1)
@@ -185,7 +199,10 @@ class EditModeActivity : Activity() {
             }, shown.hour, 0, true).show()
         }
 
-        ui.text("Starts right away and disappears when it ends. Ending it early needs an emergency unlock.", dim = true)
+        ui.text("Starts right away and disappears when it ends.", dim = true)
+
+        ui.header("Emergency unlock")
+        ui.button("Countdown: ${waitText(mode.emergencyWait)}") { pickWait() }
         ui.text("", size = 8f)
         ui.button("Start block") { save() }
     }
