@@ -17,9 +17,8 @@ A simple app blocker built around your own modes.
 
 ## Build the APK
 
-**Option A – GitHub (no computer needed):** put this project in a GitHub repository. The included workflow
-builds the APK on every push. Open the repo's **Actions** tab → latest run → download **FocusLock-apk**
-(a zip containing `app-debug.apk`).
+**Option A – GitHub (no computer needed):** every push to `main` builds the APK and publishes it as a release.
+Newest build: [download FocusLock.apk](https://github.com/alenashilina/App-blocker/releases/latest/download/FocusLock.apk)
 
 **Option B – Android Studio:** File → Open → this folder. Wait for it to sync, then
 Build → Build App Bundle(s) / APK(s) → Build APK(s).
