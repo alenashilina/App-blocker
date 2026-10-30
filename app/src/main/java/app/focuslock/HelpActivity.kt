@@ -56,7 +56,7 @@ class HelpActivity : Activity() {
                 "There are two kinds:\n\n" +
                 "• At set times: for example 💼 Work, Mon–Fri 09:00–18:00. If the end is earlier than the start " +
                 "(22:00–07:00), the mode ends the next morning.\n\n" +
-                "• After I wake up: blocks for a set time after the first time you unlock your phone after a chosen " +
+                "• Morning: after I wake up: blocks for a set time after the first time you unlock your phone after a chosen " +
                 "hour (04:00 by default). Unlock at 7:15 with a 60-minute mode, and the apps are blocked until 8:15. " +
                 "Turning off an alarm doesn't count, because you don't unlock the phone for that. " +
                 "Unlocking before the chosen hour (say, at 3 am) doesn't count either.",
@@ -77,7 +77,7 @@ class HelpActivity : Activity() {
             "5. Emergency unlock" to
                 "On the block screen, tap \"Emergency unlock\". Type the sentence shown on the screen (capital letters " +
                 "don't matter, pasting is turned off). Wait for the countdown, then unlock that app for 5, 15 or 30 minutes.\n\n" +
-                "Each mode sets its own countdown (30 seconds by default, up to 2 minutes). If two modes block the same " +
+                "Each mode and quick block sets its own countdown (30 seconds by default, up to 2 minutes). If two modes block the same " +
                 "app, the longer countdown applies. Leaving the screen restarts the countdown.",
 
             "6. Good to know" to
@@ -98,7 +98,7 @@ class HelpActivity : Activity() {
                 "название, приложения и дни недели. Режимы бывают двух видов:\n\n" +
                 "• At set times (в заданное время): например, 💼 Работа, Пн–Пт 09:00–18:00. Если конец раньше начала " +
                 "(22:00–07:00), режим закончится на следующее утро.\n\n" +
-                "• After I wake up (после пробуждения): блокирует на заданное время после первой разблокировки " +
+                "• Morning: after I wake up (утром, после пробуждения): блокирует на заданное время после первой разблокировки " +
                 "телефона после выбранного часа (по умолчанию 04:00). Разблокировали телефон в 7:15, режим на 60 минут — " +
                 "приложения заблокированы до 8:15. Выключение будильника не считается: для этого телефон не нужно " +
                 "разблокировать. Разблокировка раньше выбранного часа (например, в 3 ночи) тоже не считается.",
@@ -120,7 +120,7 @@ class HelpActivity : Activity() {
             "5. Экстренная разблокировка" to
                 "На экране блокировки нажмите «Emergency unlock». Введите фразу, показанную на экране (регистр букв " +
                 "не важен, вставка отключена). Дождитесь окончания отсчёта и разблокируйте приложение на 5, 15 или 30 минут.\n\n" +
-                "Длительность отсчёта задаётся в каждом режиме (по умолчанию 30 секунд, максимум 2 минуты). Если " +
+                "Длительность отсчёта задаётся в каждом режиме и быстрой блокировке (по умолчанию 30 секунд, максимум 2 минуты). Если " +
                 "приложение блокируют два режима, действует более долгий отсчёт. Если уйти с экрана, отсчёт начнётся заново.",
 
             "6. Полезно знать" to
