@@ -18,6 +18,8 @@ import android.view.inputmethod.InputMethodManager
 class BlockerService : AccessibilityService() {
     private lateinit var store: Store
     private var current: String? = null
+    private var lastBlocked: String? = null
+    private var lastBlockedAt = 0L
     private var keyboards: Set<String> = emptySet()
     private val handler = Handler(Looper.getMainLooper())
 
@@ -62,14 +64,23 @@ class BlockerService : AccessibilityService() {
     private fun check(pkg: String) {
         if (pkg == packageName) return
         val mode = store.blockingMode(pkg) ?: return
-        current = null
-        performGlobalAction(GLOBAL_ACTION_HOME)
+        // Apps fire several events while opening; show the block screen once.
+        val now = System.currentTimeMillis()
+        if (pkg == lastBlocked && now - lastBlockedAt < 2000) return
+        lastBlocked = pkg
+        lastBlockedAt = now
+        // Show the block screen on top of the app. (Pressing Home first would stop
+        // Android from opening it for a few seconds.)
         startActivity(
             Intent(this, BlockActivity::class.java)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 .putExtra("pkg", pkg)
                 .putExtra("modeId", mode.id)
         )
+        // Backup: if the block screen didn't appear, at least leave the app.
+        handler.postDelayed({
+            if (current == pkg) performGlobalAction(GLOBAL_ACTION_HOME)
+        }, 1500)
     }
 
     override fun onInterrupt() {}

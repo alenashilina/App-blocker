@@ -43,6 +43,8 @@ class MainActivity : Activity() {
                 dim = true
             )
             ui.button("Turn on blocker") { startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)) }
+        } else {
+            ui.text("✓ Blocker is on", size = 14f, bold = true).setTextColor(Color.parseColor("#2E9E5B"))
         }
 
         val all = store.modes()

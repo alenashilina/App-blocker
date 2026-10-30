@@ -31,7 +31,7 @@ class BlockActivity : Activity() {
             ui.text("$source · until ${mode.untilText()}", size = 16f, dim = true, center = true)
         }
         ui.text("", size = 8f)
-        ui.button("OK") { finish() }
+        ui.button("OK") { goHome() }
         box.addView(Button(this, null, android.R.attr.borderlessButtonStyle).apply {
             text = "Emergency unlock"
             isAllCaps = false
@@ -42,4 +42,8 @@ class BlockActivity : Activity() {
             }
         })
     }
+
+    // Back goes home, not back into the blocked app.
+    @Deprecated("Still called on this app's target SDK")
+    override fun onBackPressed() = goHome()
 }

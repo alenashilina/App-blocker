@@ -2,6 +2,7 @@ package app.focuslock
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
@@ -59,6 +60,14 @@ class Ui(private val c: Context, val root: LinearLayout) {
             isEnabled = enabled
             setOnClickListener { onClick() }
         }.also { add(it) }
+}
+
+/** Go to the home screen (used to leave a blocked app behind). */
+fun Activity.goHome() {
+    startActivity(
+        Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    )
+    finish()
 }
 
 fun Context.dp(v: Int): Int = (v * resources.displayMetrics.density).toInt()

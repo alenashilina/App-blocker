@@ -144,8 +144,14 @@ class EmergencyActivity : Activity() {
                 }
             }
         }
-        ui.button("Never mind") { finish() }
+        ui.button("Never mind") { leave() }
     }
+
+    @Deprecated("Still called on this app's target SDK")
+    override fun onBackPressed() = leave()
+
+    /** Backing out of unlocking an app goes home, not into the blocked app. */
+    private fun leave() = if (pkg != null) goHome() else finish()
 
     /** Ignores capital letters, extra spaces and a final full stop. */
     private fun normalize(s: String) =
