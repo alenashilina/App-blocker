@@ -15,6 +15,17 @@ android {
         versionName = "1.0"
     }
 
+    // A fixed key, so each new build installs over the previous one.
+    // (It's only for your own phone; anyone with this repo could sign with it.)
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("focuslock.keystore")
+            storePassword = "focuslock"
+            keyAlias = "focuslock"
+            keyPassword = "focuslock"
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
